@@ -20,7 +20,7 @@
         </div>
         <div class="d-flex justify-content-center" style="background-color: seashell; padding: 2rem;">
         <button id="previous" type="button" class="btn btn-dark" style="margin: 1rem">Previous</button>
-        <button type="button" class="btn btn-dark" style="margin: 1rem">Random</button>
+        <button id="random" type="button" class="btn btn-dark" style="margin: 1rem">Random</button>
         <button id="next" type="button" class="btn btn-dark" style="margin: 1rem">Next</button>
         </div>
     </div>
@@ -52,6 +52,7 @@
 
         document.getElementById("previous").addEventListener('click',() => {
             variabile -= 1;
+            if (variabile>=1){
             axios
             .get(`https://xkcd.now.sh/?comic=${variabile}`)
             .then((response) => {
@@ -59,8 +60,27 @@
                 document.getElementById('img').src = response.data.img
                 document.getElementById('title').innerText = response.data.title
             })
+        } else {
+            axios
+            .get(`https://xkcd.now.sh/?comic=latest`)
+            .then((response) => {
+                console.log(response.data);
+                document.getElementById('img').src = response.data.img
+                document.getElementById('title').innerText = response.data.title
+            })
+        }
         })
-        //https://xkcd.now.sh/?comic=303
+
+        /*document.getElementById("random").addEventListener('click',() => {
+            variabile = response.lenght;
+            axios
+            .get(`https://xkcd.now.sh/?comic=${variabile}`)
+            .then((response) => {
+                console.log(response.data);
+                document.getElementById('img').src = response.data.img
+                document.getElementById('title').innerText = response.data.title
+            })
+        }) */
     </script>
 </body>
 </html>
